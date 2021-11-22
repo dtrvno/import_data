@@ -1,57 +1,3 @@
-USE `full-stack-ecommerce` ;
-
-DROP TABLE IF EXISTS `full-stack-ecommerce`.`order_item`;
-DROP TABLE IF EXISTS `full-stack-ecommerce`.`product_best_buy`;
-DROP TABLE IF EXISTS `full-stack-ecommerce`.`product_category_best_buy`;
--- -----------------------------------------------------
--- Table `full-stack-ecommerce`.`product_category`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `full-stack-ecommerce`.`product_category_best_buy` (
-  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `category_name` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE=InnoDB
-AUTO_INCREMENT = 1;
-
--- -----------------------------------------------------
--- Table `full-stack-ecommerce`.`product`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `full-stack-ecommerce`.`product_best_buy` (
-  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `sku` VARCHAR(255) DEFAULT NULL,
-  `name` VARCHAR(255) DEFAULT NULL,
-  `description` VARCHAR(255) DEFAULT NULL,
-  `unit_price` DECIMAL(13,2) DEFAULT NULL,
-  `image_url` VARCHAR(255) DEFAULT NULL,
-  `active` BIT DEFAULT 1,
-  `units_in_stock` INT(11) DEFAULT NULL,
-  `date_created` DATETIME(6) DEFAULT NULL,
-  `last_updated` DATETIME(6) DEFAULT NULL,
-  `category_id` BIGINT(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_category_best_buy` (`category_id`),
-  CONSTRAINT `fk_category_best_buy` FOREIGN KEY (`category_id`) REFERENCES `product_category_best_buy` (`id`)
-);
-CREATE TABLE `order_item` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `image_url` varchar(255) DEFAULT NULL,
-  `quantity` int DEFAULT NULL,
-  `unit_price` decimal(19,2) DEFAULT NULL,
-  `order_id` bigint DEFAULT NULL,
-  `product_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `K_order_id_best_buy` (`order_id`),
-  CONSTRAINT `FK_order_id_best_buy` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  CONSTRAINT `FK_product_id_best_buy` FOREIGN KEY (`product_id`) REFERENCES `product_best_buy` (`id`)
-)
-ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- -----------------------------------------------------
--- Categories
--- -----------------------------------------------------
-
-INSERT INTO product_category_best_buy(category_name) VALUES ('Refregirators');
-INSERT INTO product_category_best_buy(category_name) VALUES ('Televisions');
 INSERT INTO product_best_buy (sku, name, description, image_url, active, units_in_stock, unit_price, category_id,date_created) VALUES('10554478','LG 36" 29.6 Cu. Ft. InstaView French Door Refrigerator (LFXS30796D) - Black Stainless','Will be updated later','https://multimedia.bbycastatic.ca/multimedia/products/500x500/105/10554/10554478.jpg',1,100,3399.99,1,NOW());
 INSERT INTO product_best_buy (sku, name, description, image_url, active, units_in_stock, unit_price, category_id,date_created) VALUES('10211020','Samsung 30" 21.6 Cu. Ft. French Door Refrigerator with LED Lighting - Stainless Steel','Will be updated later','https://multimedia.bbycastatic.ca/multimedia/products/500x500/102/10211/10211020.jpg',1,100,1349.99,1,NOW());
 INSERT INTO product_best_buy (sku, name, description, image_url, active, units_in_stock, unit_price, category_id,date_created) VALUES('10942869','Insignia 30" 18 Cu. Ft. Top Freezer Refrigerator with LED Lighting (NS-RTM18WH8Q) - White','Will be updated later','https://multimedia.bbycastatic.ca/multimedia/products/500x500/109/10942/10942869.jpg',1,100,499.99,1,NOW());
@@ -1054,4 +1000,3 @@ INSERT INTO product_best_buy (sku, name, description, image_url, active, units_i
 INSERT INTO product_best_buy (sku, name, description, image_url, active, units_in_stock, unit_price, category_id,date_created) VALUES('10768225','Nec Display 40 Commercial-grade Large Format Display - 40','Will be updated later','https://multimedia.bbycastatic.ca/multimedia/products/500x500/107/10768/10768225.jpg',1,100,1216.95,2,NOW());
 INSERT INTO product_best_buy (sku, name, description, image_url, active, units_in_stock, unit_price, category_id,date_created) VALUES('12381317','Panasonic 49-inch Class Full HD LCD Display (TH-49SF2U)','Will be updated later','https://multimedia.bbycastatic.ca/multimedia/products/500x500/123/12381/12381317.jpg',1,100,1775.95,2,NOW());
 INSERT INTO product_best_buy (sku, name, description, image_url, active, units_in_stock, unit_price, category_id,date_created) VALUES('10654374','Refurbished 49" UH6500 4K UHD Smart LED TV with webOS™ 3.0','Will be updated later','https://multimedia.bbycastatic.ca/multimedia/products/500x500/106/10654/10654374.jpg',1,100,849,2,NOW());
-
